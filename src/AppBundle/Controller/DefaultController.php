@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,10 +10,35 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/app/example", name="homepage")
+     * @Route("/app/example/{id}", requirements={"id" = "\d+"}, name="homepage")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
-        return $this->render('default/index.html.twig');
+        $product = new Product();
+
+        $product->setName('Sponge');
+        $product->setPrice('4.99');
+        $product->setDescription('A sponge that will clean everything ... don\'t use on your wife.');
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($product);
+        $em->flush();
+
+        /*$productDocRep = $this->getDoctrine()->getRepository('AppBundle:Product');
+        $products = $productDocRep->findAll();
+
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'Aucun produit trouvé pour cet id : '.$id
+            );
+        }
+
+        return $this->render('default/index.html.twig', array(
+            'products'   => $products
+        ));*/
+
+        return $this->render('default/index.html.twig', array(
+            'product'   => $product
+        ));
     }
 }

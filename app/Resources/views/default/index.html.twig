@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Aurélian is bombastic.
+    {% if product is defined %}
+        Well done ! Aurélian is a {{ product.name }}.<br/>
+        {{ product.description }}
+        <br/><br/>
+        And don't ever forget : Aurélian also is bombastic.
+    {% endif %}
+
+    {% if products is defined %}
+        The full product list is the following :
+        {% for singleProduct in products %}
+            <ul>
+                <li>{{ singleProduct.name }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
