@@ -14,7 +14,7 @@ class DefaultController extends Controller
      */
     public function indexAction($id)
     {
-        $product = new Product();
+        /*$product = new Product();
 
         $product->setName('Sponge');
         $product->setPrice('4.99');
@@ -22,20 +22,15 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($product);
-        $em->flush();
+        $em->flush();*/
 
-        /*$productDocRep = $this->getDoctrine()->getRepository('AppBundle:Product');
-        $products = $productDocRep->findAll();
+        $product = $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
 
-        if (!$products) {
+        if (!$product) {
             throw $this->createNotFoundException(
                 'Aucun produit trouvé pour cet id : '.$id
             );
         }
-
-        return $this->render('default/index.html.twig', array(
-            'products'   => $products
-        ));*/
 
         return $this->render('default/index.html.twig', array(
             'product'   => $product
