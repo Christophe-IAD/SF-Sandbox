@@ -5,17 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product
+ * Category
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @ORM\Entity
  */
-class Product
+class Category
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_product", type="integer")
+     * @ORM\Column(name="id_category", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -31,25 +31,20 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal")
-     */
-    private $price;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id_category", nullable=false)
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
      */
-    private $category;
+    protected $products;
+    
 
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -65,7 +60,7 @@ class Product
      * Set name
      *
      * @param string $name
-     * @return Product
+     * @return Category
      */
     public function setName($name)
     {
@@ -85,33 +80,10 @@ class Product
     }
 
     /**
-     * Set price
-     *
-     * @param string $price
-     * @return Product
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return string 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * Set description
      *
      * @param string $description
-     * @return Product
+     * @return Category
      */
     public function setDescription($description)
     {
@@ -131,25 +103,35 @@ class Product
     }
 
     /**
-     * Set category
+     * Add products
      *
-     * @param \AppBundle\Entity\Category $category
-     * @return Product
+     * @param \AppBundle\Entity\Product $products
+     * @return Category
      */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
+    public function addProduct(\AppBundle\Entity\Product $products)
     {
-        $this->category = $category;
+        $this->products[] = $products;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Remove products
      *
-     * @return \AppBundle\Entity\Category 
+     * @param \AppBundle\Entity\Product $products
      */
-    public function getCategory()
+    public function removeProduct(\AppBundle\Entity\Product $products)
     {
-        return $this->category;
+        $this->products->removeElement($products);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

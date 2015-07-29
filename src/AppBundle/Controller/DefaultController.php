@@ -12,7 +12,7 @@ class DefaultController extends Controller
     /**
      * @Route("/app/example/{id}", requirements={"id" = "\d+"}, name="homepage")
      */
-    public function indexAction($id)
+    public function indexAction(Product $product, Request $request)
     {
         /*$product = new Product();
 
@@ -24,13 +24,18 @@ class DefaultController extends Controller
         $em->persist($product);
         $em->flush();*/
 
-        $product = $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
+       /* $product = $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
 
         if (!$product) {
             throw $this->createNotFoundException(
                 'Aucun produit trouvé pour cet id : '.$id
             );
-        }
+        }*/
+
+        $product = $this->getDoctrine()->getRepository('AppBundle:Product');
+        $product->findAllOrderedByName();
+
+        var_dump($request);
 
         return $this->render('default/index.html.twig', array(
             'product'   => $product
