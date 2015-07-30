@@ -2,8 +2,9 @@
 
 {% block body %}
     {% if product is defined %}
-        Well done ! Aurélian is a {{ product.name }}.<br/>
-        {{ product.description }}
+        You have requested "{{ product.name }}" from the "{{ product.category.name }}" category.<br/>
+        {{ product.description }}<br/>
+        For only ${{ product.price }} !
         <br/><br/>
         And don't ever forget : Aurélian also is bombastic.
     {% endif %}
@@ -16,7 +17,4 @@
             </ul>
         {% endfor %}
     {% endif %}
-
-    <br/><br/>
-    SUPER !
 {% endblock %}

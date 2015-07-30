@@ -32,10 +32,10 @@ class DefaultController extends Controller
             );
         }*/
 
-        $product = $this->getDoctrine()->getRepository('AppBundle:Product');
-        $product->findAllOrderedByName();
+        /*$product = $this->getDoctrine()->getRepository('AppBundle:Product');
+        $product->findAllOrderedByName();*/
 
-        var_dump($request);
+//        var_dump($product);
 
         return $this->render('default/index.html.twig', array(
             'product'   => $product
