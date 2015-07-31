@@ -51,6 +51,27 @@ class Product
      */
     private $category;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="removed", type="datetime")
+     */
+    private $removed;
+
 
     /**
      * Get id
@@ -160,5 +181,21 @@ class Product
     public function setCreatedValue()
     {
         $this->created = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function setRemovedValue()
+    {
+        $this->removed = new \DateTime();
     }
 }

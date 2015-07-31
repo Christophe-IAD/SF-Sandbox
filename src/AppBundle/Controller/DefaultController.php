@@ -37,6 +37,10 @@ class DefaultController extends Controller
 
 //        var_dump($product);
 
+        /*$em = $this->getDoctrine()->getEntityManager();
+        $em->remove($product);
+        $em->flush();*/
+
         return $this->render('default/index.html.twig', array(
             'product'   => $product
         ));

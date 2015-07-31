@@ -15,6 +15,8 @@ $loader->unregister();
 $apcLoader->register(true);
 */
 
+umask(0002); // Définit une permission 0775
+
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
